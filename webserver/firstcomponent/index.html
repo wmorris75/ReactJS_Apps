@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My First Components</title>
+	<meta charset="UTF-8" />
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>	
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+
+</head>
+<body>
+	<div id="HelloMessage"></div>
+
+	<script type="text/babel">
+			var HelloMessage = React.createClass({
+			sayMessage: function(){
+				alert(this.props.children);
+			},
+			render: function(){
+				return <div>
+							<h3>Hello {this.props.word}!</h3>
+							<p><a href="#" onMouseOver={this.sayMessage}>For Message</a></p>
+						</div>;
+			}
+		});
+		ReactDOM.render(<HelloMessage word="Everyone">What are you up to?</HelloMessage>, 
+						document.getElementById('HelloMessage')
+		);
+	</script>
+
+</body>
+</html>

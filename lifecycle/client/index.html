@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My First Components</title>
+	<meta charset="UTF-8" />
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<!--<script src="https://cdjns.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>-->
+</head>
+<body>
+
+	<script type="text/babel">
+		var myComponent = React.createClass({
+			getDefaultProps: function(){
+			    console.log('Invoking the getDefaultProps');
+			    return{
+			        myProp: "Foobar"
+			    };
+			},
+			getInitialState: function(){
+			    console.log('Invoking the getInitialState method');
+			    return null;
+			},
+			componentWillMount: function(){
+			    console.log('Invoking teh componentWillMount method');
+			},
+			componentDidMount: function(){
+			    console.log('Invoking the componentDidMount method');
+			},
+			render: function(){
+			    console.log('Invoking render');
+			    return(
+			        <div>
+						<h1>{this.props.myProp}</h1>
+						<button onClick={this.changeProp}>Change Property</button>
+						<button onClick={this.removeHandler}>Unmount</button>
+					</div>
+				)
+			},
+			componentWillReceiveProps: function(){
+			    console.log('Invoking the ComponentWillReceiveProps method');
+			    return true;
+			},
+			shouldComponentUpdate: function(){
+			    console.log('Invoking the shouldComponentUpdate method');
+			    return true;
+			},
+			ComponentWillUpdate: function () {
+				console.log('Invoking the ComponentDidUpdate method');
+            },
+			ComponentDidUpdate: function () {
+				console.log('Invoking the ComponentDidUpdate method');
+            },
+			ComponentWillUnmount: function () {
+			    console.log('Invoking the ComponentWillUnmount method');
+			},
+			changeProp: function(){
+			    this.setProps({myProp: 'Bar'})
+			},
+			removeHandler: function () {
+				ReactDOM.unmountComponentAtNode(document.getElementsById('container'))
+            }
+
+		});
+
+	</script>
+
+</body>
+</html>
