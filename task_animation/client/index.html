@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My First Components</title>
+	<meta charset="UTF-8" />
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://fb.me/react-0.14.0.js"></script>
+	<script src="https://fb.me/react-dom-0.14.0.js"></script>
+    <script src="https://fb.me/react-with-addons-0.14.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+
+    <style>
+        body{margin-top:30px;}
+        #tasks div div{
+            padding: 10px;
+            background: #f4f4f4;
+            border:1px #ccc solid;
+            width: 100%;
+            margin:5px;
+        }
+        .tasks-enter{
+            opacity: 0.01;
+            transition: 1s ease-in;
+        }
+        .tasks-enter.tasks-enter-active{
+            opacity: 1;
+        }
+        .tasks-leave{
+            opacity:1;
+            transition: opacity 1s ease-in;
+        }
+        .tasks-leave.tasks-leave-active{
+            opacity: 0.01;
+        }
+    </style>
+
+</head>
+<body>
+	<div id="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="tasks"></div>
+            </div>
+        </div>
+    </div>
+	<script type="text/babel">
+        var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+        var TaskList = React.createClass ({
+            getInitialState: function () {
+                return {items: ['Bring the kids to school - 7am']}
+            },
+            handleAdd: function () {
+                var newItems = this.state.items.concat([prompt('Add A Task')]);
+                this.setState({items: newItems});
+            },
+            handleRemove: function (index) {
+              var newItems = this.state.items;
+              newItems.splice(index, 1);
+              this.setState({items: newItems})
+            },
+            render: function () {
+                var items = this.state.items.map(function (item, index) {
+                    return (
+                            <div key={item} onClick={this.handleRemove.bind(this, index)}>
+                                {item}
+                            </div>
+                    );
+                }.bind(this));
+
+                return (
+                    <div>
+                        <button className="btn btn-primary btn-block" onClick={this.handleAdd}></button>
+                        <ReactCSSTransitionGroup transitionName="tasks"
+                            transitionTimeout={1000}
+                            transitionEnterTimeout = {1000}
+                            transitionLeaveTimeout={500}>
+                            {items}
+                        </ReactCSSTransitionGroup>
+                    </div>
+                )
+            }
+        });
+        React.render(<TaskList/>, document.getElementById('tasks'))
+	</script>
+
+</body>
+</html>

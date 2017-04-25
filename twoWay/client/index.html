@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Two Way Data Binding</title>
+	<meta charset="UTF-8" />
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://fb.me/react-0.14.0.js"></script>
+	<script src="https://fb.me/react-dom-0.14.0.js"></script>
+    <script src="https://fb.me/react-with-addons-0.14.3.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.25/browser.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div id="example"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/babel">
+		var MyComponent = React.createClass({
+			mixins: [React.addons.LinkedStateMixin],
+
+			getInitialState: function () {
+				return{
+				    value: 'Some ValueLLL'
+				}
+            },
+			render: function () {
+				return(
+						<div>
+							<h4>{this.state.value}</h4>
+							<MyInput valueLink={this.linkState('value')}/>
+						</div>
+				)
+            }
+		});
+
+		var MyInput = React.createClass({
+			render: function () {
+			    return(<input type="text" valueLink={this.props.valueLink}/>)
+
+            }
+		});
+	    ReactDOM.render(<MyComponent/>, document.getElementById('example'));
+	</script>
+
+</body>
+</html>
